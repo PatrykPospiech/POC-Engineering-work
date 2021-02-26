@@ -18,7 +18,7 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore POC.Calc.API
     - name: Build
       run: dotnet build POC.Calc.API --no-restore
     - name: Test
