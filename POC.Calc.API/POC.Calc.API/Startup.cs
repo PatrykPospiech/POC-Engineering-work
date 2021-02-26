@@ -33,9 +33,8 @@ namespace POC.Calc.API
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "POC.Calc.API", Version = "v1"});
             });
 
-            services.AddDbContext<APIContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("APIContext")));
-            
+            //    "APIContext": "Server=(localdb)\\mssqllocaldb;Database=APIContext-08b5af64-bdc5-4dff-9e9e-94e271a560db;Trusted_Connection=True;MultipleActiveResultSets=true"
+   
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,9 +43,9 @@ namespace POC.Calc.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "POC.Calc.API v1"));
             }
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "POC.Calc.API v1"));
 
             app.UseHttpsRedirection();
 
