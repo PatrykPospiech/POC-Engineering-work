@@ -1,0 +1,46 @@
+﻿@using RestSharp
+@using System.Text.Json
+<h3>ProductsTable</h3>
+
+
+@*    <MatTable Items="@DatabaseModels" class="mat-elevation-z5">
+            <MatTableHeader>
+                <th>ID</th>
+                <th>Dane</th>
+            </MatTableHeader>
+            <MatTableRow>
+                <td>@context.ID</td>
+                <td>@context.Dane</td>
+            </MatTableRow>
+        </MatTable>*@
+
+@DatabaseModels.Count
+@code {
+
+    List<DatabaseModel> DatabaseModels = new List<DatabaseModel>();
+    //LoadDataFromAPI();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var databaseModels = new List<DatabaseModel>();
+
+        var httpClient = new HttpClient();
+
+        var response = await httpClient.GetAsync("https://localhost:5001/api/entry");
+
+        response.EnsureSuccessStatusCode();
+
+
+        //DatabaseModels = databaseModels;
+
+        using var responseStream = await response.Content.ReadAsStreamAsync();
+        DatabaseModels = await JsonSerializer.DeserializeAsync
+        <List<DatabaseModel>>(responseStream);
+
+    }
+
+
+
+
+
+}

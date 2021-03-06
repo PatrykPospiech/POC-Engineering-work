@@ -32,7 +32,14 @@ namespace POC.Calc.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "POC.Calc.API", Version = "v1"});
             });
-
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    );
+            });
             //    "APIContext": "Server=(localdb)\\mssqllocaldb;Database=APIContext-08b5af64-bdc5-4dff-9e9e-94e271a560db;Trusted_Connection=True;MultipleActiveResultSets=true"
    
         }
@@ -52,7 +59,7 @@ namespace POC.Calc.API
             app.UseRouting();
 
             app.UseAuthorization();
-
+ app.UseCors("CorsPolicy");
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }

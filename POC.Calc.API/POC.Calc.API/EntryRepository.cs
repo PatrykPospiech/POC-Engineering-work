@@ -7,12 +7,25 @@ namespace POC.Calc.API
 {
     public class EntryRepository
     {
+
+        public void AddEntry(DatabaseModel databaseModel)
+        {
+            using (SqlConnection connection = new SqlConnection(
+                @"Data Source=192.168.137.11\PRVSQL14;Initial Catalog=db_wh;User ID=sa;Password=sql"))
+            {
+                SqlCommand command = new SqlCommand($"insert into tb_db_wh (ID, Dane) values ({databaseModel.ID}, {databaseModel.Dane});", connection);
+                command.Connection.Open();
+                command.ExecuteNonQuery();
+
+            }
+            
+        }
         public List<DatabaseModel> GetAllEntry()
         {
             using (SqlConnection connection = new SqlConnection(
-                "Data Source=127.0.0.1,1401;Initial Catalog=tb_db_wh;User ID=sa;Password=Warehouse!"))
+                @"Data Source=192.168.137.11\PRVSQL14;Initial Catalog=db_wh;User ID=sa;Password=sql"))
             {
-                SqlCommand command = new SqlCommand("select * from db_wh", connection);
+                SqlCommand command = new SqlCommand("select * from tb_db_wh", connection);
                 command.Connection.Open();
                 var read = command.ExecuteReader();
 

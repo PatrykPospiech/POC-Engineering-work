@@ -25,5 +25,11 @@ namespace POC.Calc.API.Controllers
         {
             return _repository.GetAllEntry();
         }
+        
+        [HttpPost]
+        public void AddDatabaseModel(DatabaseModel dbModel)
+        {
+            _repository.AddEntry(dbModel);
+        }
     }
 }
